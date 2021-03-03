@@ -5,6 +5,8 @@ class BooksController < ApplicationController
   # GET /books.json
   def index
     @books = Book.all
+    sort_by_units_sold = @books.sort_by {|b| b.units_sold}
+    @top_seller = sort_by_units_sold[0]
   end
 
   # GET /books/1

@@ -1,7 +1,9 @@
 require 'test_helper'
 
 class AuthorTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  
+  def test_author_creation
+  	author = Author.create(first_name: "John")
+  	assert_equal author.name, "Smith, John"
+  end
 end
