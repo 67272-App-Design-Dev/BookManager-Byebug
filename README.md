@@ -1,3 +1,37 @@
+# Book Manager ByeBug Teaching Session
+
+There is a rails 5 application [BookManager - ByeBug]. It has some code that I added that breaks the application. Run bundle install and rails db:migrate to set it up first. You will work through with the class and figure out how to fix the application. The following are the bugs:
+
+## Books won’t display properly
+
+1.  You will first go to this page and ask the class what they think is wrong. (Note the undefined method `title' for nil:NilClass) Ask the class where they think you should start debugging
+
+2.  The right place is to look at the index action of BooksController. This is because we are currently looking at the route that maps to that action. Put byebug in the first line of the index action and refresh the page.
+
+3.  Basically run through step by step to see what is wrong. Ask the class at each step what to do next in order to figure out the bug. Once you hit the line that sets @top_seller to the first index of sort_by_units_sold, then ask the class why they think this will break the front end.
+
+4.  The answer is that when there are no books in the database, the top seller will be nil. The correct solution should be to add a check in the index view of whether or not @top_seller is nil before getting its title.
+
+5.  Verify that it works! You can create a new publisher and then book to show that it works, but not necessary.
+
+## Last Name can't be blank error
+
+1.  Ask the class what they think is wrong? Where in the application do you think the problem is, Model, Controller, or View? The correct answer should be controller, since the model is validating properly.
+
+2.  Now ask them where they should put byebug? It should be placed in the create action of AuthorsController.
+
+3.  Now step through line by line and ask the class what they think is wrong?
+
+Some things to go over
+- Check that @author.valid? Is false
+- Check that @author.save is false too
+- Check the @author object and see that last_name is missing
+
+4.  Ask them why they think it is missing, then check what author_params returns.
+
+5.  Show that last_name was unpermitted and look into that function. The right solution is that when we whitelisted the params in the function author_params, we misspelled last_name as lst_name.
+
+
 # Book Manager Lab (Updated 2017)
 
 ## Part 1
